@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Колесо Фортуны</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wheel-container">
+        <canvas id="wheelCanvas" width="800" height="800"></canvas>
+        <button id="spinBtn">Крутить!</button>
+    </div>
+
+    <!-- Модальное окно с результатом -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title">вам выпало...</div>
+            <div class="modal-result" id="modalResult"></div>
+            <div class="modal-description" id="modalDescription"></div>  <!-- НОВАЯ СТРОЧКА -->
+            <button id="closeModalBtn" class="modal-close-btn">Ну ок чё</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <script src="script.js"></script>
+</body>
+</html>
