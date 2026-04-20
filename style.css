@@ -11,7 +11,7 @@ body {
 /* Подключение своего шрифта */
 @font-face {
     font-family: 'MyCustomFont';      /* Название шрифта (придумайте сами) */
-    src: url('C:/Users/Алексей/Desktop/WoW/Fortuna/WarCraft.ttf') format('truetype');  /* путь к файлу */
+    src: url('WarCraft.ttf') format('truetype');  /* путь к файлу */
     font-weight: normal;
     font-style: normal;
 }
