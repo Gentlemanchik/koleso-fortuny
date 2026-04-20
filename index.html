@@ -15,13 +15,21 @@
     <!-- Модальное окно с результатом -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <div class="modal-title">вам выпало...</div>
-            <div class="modal-result" id="modalResult"></div>
-            <div class="modal-description" id="modalDescription"></div>  <!-- НОВАЯ СТРОЧКА -->
-            <button id="closeModalBtn" class="modal-close-btn">Ну ок чё</button>
+            <img id="modalImage" class="modal-image" src="" alt="Поздравление">
+            <div class="modal-description" id="modalDescription"></div>
+            <button id="closeModalBtn" class="modal-close-btn">Отлично!</button>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <!-- Лучи прожекторов для джекпота -->
+    <div id="lightBeams" class="light-beams">
+        <div class="beam beam-left"></div>
+        <div class="beam beam-right"></div>
+    </div>
+    <!-- Огонь внизу -->
+    <div id="fireEffect" class="fire-effect"></div>
+    <!-- Красноватый оверлей -->
+    <div id="redOverlay" class="red-overlay"></div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

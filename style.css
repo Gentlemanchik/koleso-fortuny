@@ -11,7 +11,7 @@ body {
 /* Подключение своего шрифта */
 @font-face {
     font-family: 'MyCustomFont';      /* Название шрифта (придумайте сами) */
-    src: url('warcraft.ttf') format('truetype');  /* путь к файлу */
+    src: url('C:/Users/Алексей/Desktop/WoW/Fortuna/WarCraft.ttf') format('truetype');  /* путь к файлу */
     font-weight: normal;
     font-style: normal;
 }
@@ -65,12 +65,15 @@ button:active {
 .modal-content {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 30px;
-    padding: 60px 70px;
+    padding: 40px 50px;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: slideIn 0.4s ease;
-    max-width: 700px;
-    width: 90%;
+    display: inline-block;  /* ← важно: ширина по содержимому */
+    max-width: 90vw;        /* ← максимум 90% ширины экрана */
+    max-height: 90vh;       /* ← максимум 90% высоты экрана */
+    overflow: auto;         /* ← если слишком большое — появятся полосы прокрутки */
+    transition: all 0.3s ease;
 }
 
 /* Иконка */
@@ -124,13 +127,136 @@ button:active {
 
 /* Описание выигрыша */
 .modal-description {
-    font-size: 30px;
-    color: #fff;
+    font-size: 38px;
+    text-align: center;
+    color: #faf602;
     margin: 15px 0 20px 0;
     padding: 10px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
     line-height: 1.4;
+    word-wrap: break-word;      /* ← добавляем перенос длинных слов */
+    max-width: 500px;           /* ← ограничиваем ширину текста */
+    margin-left: auto;       /* ← центрирование блока */
+    margin-right: auto;      /* ← центрирование блока */
+}
+
+.modal-description.jackpot {
+    animation: rainbowText 2s infinite;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Картинка/гифка в модальном окне */
+.modal-image {
+    display: block;
+    margin: 0 auto 20px auto;
+    animation: bounce 0.5s ease;
+    max-width: 80vw;        /* ← максимум 80% ширины экрана */
+    max-height: 70vh;       /* ← максимум 70% высоты экрана */
+    width: auto;            /* ← автоматическая ширина */
+    height: auto;           /* ← автоматическая высота */
+    object-fit: contain;
+}
+
+/* Если хотите картинку побольше */
+.modal-image.large {
+    width: 180px;
+    height: 180px;
+}
+
+/* Контейнер для лучей */
+.light-beams {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;  /* чтобы лучи не мешали кликам */
+    z-index: 1500;         /* выше фона, но ниже модального окна */
+    display: none;         /* скрыты по умолчанию */
+    overflow: hidden;
+}
+
+
+/* Общие стили для лучей */
+.beam {
+    position: absolute;
+    bottom: 0;
+    width: 200px;
+    height: 100%;
+    background: linear-gradient(to top, 
+        rgba(255, 215, 0, 0.8) 0%,    /* золотой внизу */
+        rgba(255, 215, 0, 0.4) 40%,   /* прозрачнее выше */
+        rgba(255, 215, 0, 0) 100%     /* полностью прозрачный вверху */
+    );
+    transform-origin: bottom center;
+    animation: sway 3s ease-in-out infinite;
+}
+
+/* Левый луч */
+.beam-left {
+    background: linear-gradient(to top, 
+        rgba(255, 215, 0, 0.8) 0%,
+        rgba(255, 215, 0, 0.4) 40%,
+        rgba(255, 215, 0, 0) 100%
+    );
+    left: -100px;
+    transform: skewX(-15deg);
+    animation-delay: 0s;
+}
+
+/* Правый луч */
+.beam-right {
+    background: linear-gradient(to top, 
+        rgba(255, 50, 50, 0.8) 0%,
+        rgba(255, 50, 50, 0.4) 40%,
+        rgba(255, 50, 50, 0) 100%
+    );
+    right: -100px;
+    transform: skewX(15deg);
+    animation-delay: 0.5s;
+}
+
+/* Анимация покачивания */
+@keyframes sway {
+    0% {
+        transform: skewX(-20deg);
+    }
+    50% {
+        transform: skewX(-10deg);
+    }
+    100% {
+        transform: skewX(-20deg);
+    }
+}
+
+/* Для правого луча — своя анимация */
+@keyframes swayRight {
+    0% {
+        transform: skewX(20deg);
+    }
+    50% {
+        transform: skewX(10deg);
+    }
+    100% {
+        transform: skewX(20deg);
+    }
+}
+
+.beam-right {
+    animation: swayRight 3s ease-in-out infinite;
+}
+
+@keyframes rainbowText {
+    0% { color: #ff0000; }
+    14% { color: #ff7f00; }
+    28% { color: #ffff00; }
+    42% { color: #00ff00; }
+    57% { color: #0000ff; }
+    71% { color: #4b0082; }
+    85% { color: #9400d3; }
+    100% { color: #ff0000; }
 }
 
 /* Анимации */
@@ -154,4 +280,62 @@ button:active {
     0% { transform: scale(0); }
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
+}
+
+/* Огонь внизу экрана */
+.fire-effect {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to top, 
+        #ff4500 0%, 
+        #ff6600 30%, 
+        rgba(255, 100, 0, 0.6) 60%, 
+        transparent 100%);
+    filter: blur(5px);
+    animation: fireFlicker 0.2s infinite alternate;
+    z-index: 1500;
+    pointer-events: none;
+    display: none;
+}
+
+@keyframes fireFlicker {
+    0% { opacity: 0.8; height: 70px; filter: blur(4px); }
+    100% { opacity: 1; height: 90px; filter: blur(6px); }
+}
+
+/* Красноватый оверлей */
+.red-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(180, 0, 0, 0.3);
+    z-index: 1400;
+    pointer-events: none;
+    display: none;
+}
+
+/* Тряска экрана */
+@keyframes shake {
+    0% { transform: translate(1px, 1px); }
+    10% { transform: translate(-1px, -2px); }
+    20% { transform: translate(-2px, 0px); }
+    30% { transform: translate(2px, 2px); }
+    40% { transform: translate(1px, -1px); }
+    50% { transform: translate(-1px, 2px); }
+    60% { transform: translate(-2px, 1px); }
+    70% { transform: translate(2px, 1px); }
+    80% { transform: translate(-1px, -1px); }
+    90% { transform: translate(1px, 2px); }
+    100% { transform: translate(1px, -2px); }
+}
+
+
+.modal-content.shake {
+    animation: shake 0.2s infinite;
+    background: linear-gradient(135deg, #ff3300 0%, #990000 100%);
 }
